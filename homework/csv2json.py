@@ -20,7 +20,7 @@ def convert_csv_2_json(input_file):
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
-    ui.notify("The file was transformed successfully!")
+    return output_file
 
 
 def app():
@@ -35,12 +35,15 @@ def app():
     )
 
     ui.label("")
-
-    ui.label("")
-    ui.button("Convert", on_click=lambda: convert_csv_2_json(filename.value))
+    ui.button(
+        "Convert",
+        on_click=lambda: (
+            convert_csv_2_json(filename.value),
+            ui.notify("The file was transformed successfully!"),
+        ),
+    )
     ui.run()
 
 
-app()
-
-# pip3 install nicegui
+if __name__ == "__main__":
+    app()
